@@ -1,16 +1,23 @@
-body {
-    font-family: 'Arial', sans-serif; /* Sets the font to Arial */
-    background-color: black; /* Sets the background color to black */
-    color: white; /* Sets the text color to white */
+body, html {
+    height: 100%; /* Ensures the full height of the viewport */
     margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    background-color: black; /* Sets background to black */
+    color: #F8F8FF; /* Sets text color to ghost white for off-white effect */
+    font-family: 'Arial', sans-serif; /* Sets the font to Arial */
+}
+
+.content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Ensures the body takes at least the full height of the viewport */
+    height: 100vh; /* Viewport Height: takes up 100% of the viewport height */
     text-align: center; /* Centers text horizontally */
 }
 
 #verseDisplay {
-    font-size: 24px; /* Adjust the font size as needed */
-    margin: 20px; /* Adds some space around the text */
+    font-size: 24px; /* Sets the font size for the verse */
+    margin-top: 20px; /* Space between title and verse */
 }
+
