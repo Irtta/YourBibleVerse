@@ -14,7 +14,7 @@ body, html {
     align-items: center;
     height: 100vh;
     text-align: center;
-    margin-top: -50px; /* Adjust this value as needed */
+    margin-top: -150px; /* Adjust this value as needed */
 }
 
 #logo {
