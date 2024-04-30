@@ -3,6 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Authentication</title>
+</head>
+<body>
+    <h1>NFC Authentication</h1>
+    <p>Tap your NFC card to authenticate:</p>
+    
+    <script>
+        // Function to handle NFC card authentication
+        function authenticateNFC() {
+            // Extract token from URL
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            const token = params.token;
+
+            // Compare token with expected shared token
+            const expectedToken = "DKjJ#nMh7rUw5q9SgZ$L3^Ha2*BnGfA6dY@pT!oR+cVtXwI8zQy%eCmZpW$sU^jKnL&fBhYt3cV6xBzE@qRw4TgP7yIuS+kYrN!mO#lVbZnJxGsErHvDa2fCk5lFvJmO6tTgP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tTgP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tTgP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tTgP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tTgP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!gXmTb8qY#nJxGsErHvDa2fCk5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g
+"; // Replace with your actual shared token
+            if (token === expectedToken) {
+                // Authentication successful, redirect user to authenticated page
+                window.location.href = "https://irtta.github.io/YourBibleVerse/"; // Replace "authenticated.html" with your authenticated page URL
+            } else {
+                // Authentication failed, display error message
+                alert("Authentication failed. Please try again.");
+            }
+        }
+
+        // Call the authentication function when the page loads
+        authenticateNFC();
+    </script>
+</body>
+</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YourBibleVerse</title>
     <link rel="stylesheet" href="style.css">
 </head>
