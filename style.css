@@ -1,7 +1,16 @@
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    text-align: center;
-    background-color: #f0f0f0;
-    color: #333;
+    font-family: 'Arial', sans-serif; /* Sets the font to Arial */
+    background-color: black; /* Sets the background color to black */
+    color: white; /* Sets the text color to white */
+    margin: 0; /* Removes default margin */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensures the body takes at least the full height of the viewport */
+    text-align: center; /* Centers text horizontally */
+}
+
+#verseDisplay {
+    font-size: 24px; /* Adjust the font size as needed */
+    margin: 20px; /* Adds some space around the text */
 }
