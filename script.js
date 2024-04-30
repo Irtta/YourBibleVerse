@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('ves.json')
+    fetch('verses.json')
         .then(response => response.json())
         .then(verses => {
             displayRandomVerse(verses);
