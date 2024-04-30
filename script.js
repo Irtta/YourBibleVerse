@@ -14,3 +14,4 @@ document.addEventListener('DOMContentLoaded', function() {
     const verse = getRandomVerse();
     document.getElementById('verseDisplay').innerText = `${verse.text} — ${verse.reference}`;
 });
+
