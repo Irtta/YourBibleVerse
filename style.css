@@ -1,10 +1,10 @@
 body, html {
-    height: 100%; /* Ensures the full height of the viewport */
-    margin: 0; /* Removes default margin */
-    padding: 0; /* Removes default padding */
+    height: 100%;
+    margin: 0;
+    padding: 0;
     background-color: black; /* Sets background to black */
-    color: #F8F8FF; /* Sets text color to ghost white for off-white effect */
-    font-family: 'Arial', sans-serif; /* Sets the font to Arial */
+    color: #F8F8FF; /* Off-white text color */
+    font-family: 'Arial', sans-serif;
 }
 
 .content {
@@ -12,12 +12,21 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Viewport Height: takes up 100% of the viewport height */
-    text-align: center; /* Centers text horizontally */
+    height: 100vh;
+    text-align: center;
+}
+
+#logo {
+    width: 200px; /* Assuming this size is roughly twice the heading size */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between logo and title */
+}
+
+h1 {
+    font-size: 32px; /* Explicit font size for heading */
 }
 
 #verseDisplay {
-    font-size: 24px; /* Sets the font size for the verse */
+    font-size: 24px;
     margin-top: 20px; /* Space between title and verse */
 }
-
