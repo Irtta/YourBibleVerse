@@ -50,7 +50,7 @@ h1 {
 #verseDisplay {
     font-size: 24px; /* Set the font size for the verse */
     opacity: 0; /* Starts with 0 opacity, will animate to 1 */
-    animation: fadeIn 2s; /* Re-applies the fade-in animation specifically if needed */
+    animation: fadeIn 2s ease-in-out forwards; /* Re-applies the fade-in animation specifically if needed */
 }
 
 /* Responsive adjustments */
