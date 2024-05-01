@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if there is a token in the URL parameters
     const token = (new URLSearchParams(window.location.search)).get('token');
 
+    // Log token for debugging
+    console.log("Token from URL:", token);
+
     // If a token is present in the URL
     if (token) {
         // Attempt to authenticate the token
@@ -18,8 +21,14 @@ function authenticateToken(token) {
     // Expected authentication token
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
     
+    // Log expected token for debugging
+    console.log("Expected Token:", expectedToken);
+
     // If the provided token matches the expected token
     if (token === expectedToken) {
+        // Log authentication success for debugging
+        console.log("Authentication successful");
+
         // Store authentication status in session storage
         sessionStorage.setItem('authenticated', 'true');
     } else {
@@ -31,26 +40,5 @@ function authenticateToken(token) {
 // Function to display authentication failure message
 function displayAuthenticationMessage() {
     // Display a message indicating authentication failure
-    document.getElementById('verseDisplay').innerHTML = "Authentication failed. Please tap your NFC card again.";
-}
-
-// Function to execute when the window is unloaded (page refresh)
-window.addEventListener('beforeunload', function() {
-    // Check if the user is authenticated
-    const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
-
-    // If the user is authenticated
-    if (isAuthenticated) {
-        // Redirect to clean URL (remove token from URL)
-        redirectToCleanURL();
-    }
-});
-
-// Function to redirect to a clean URL (remove token from URL)
-function redirectToCleanURL() {
-    // Clean URL
-    const cleanURL = "https://irtta.github.io/YourBibleVerse/";
-
-    // Redirect to the clean URL
-    window.location.href = cleanURL;
+    console.log("Authentication failed. Please tap your NFC card again.");
 }
