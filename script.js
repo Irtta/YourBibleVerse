@@ -1,26 +1,18 @@
 // Function to execute when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    displayAuthenticationMessage(); // Always start with authentication message
+    promptForToken(); // Always start by asking for a token
 });
 
-// Function to authenticate the token
+// Function to authenticate the token and display a verse
 function authenticateToken(token) {
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
     
     if (token === expectedToken) {
         displayRandomVerse();
     } else {
-        displayAuthenticationMessage();
+        alert("Authentication failed. Please enter a valid token.");
+        promptForToken(); // Re-prompt for token on failure
     }
-    // Clear the token after use to require re-authentication
-    localStorage.removeItem('authToken');
-    updateURLWithoutToken();
-}
-
-// Function to display authentication failure message
-function displayAuthenticationMessage() {
-    document.getElementById('verseDisplay').innerHTML = "Authentication failed. Please tap your NFC card again.";
-    promptForToken(); // Function to prompt user for token input
 }
 
 // Function to display a random Bible verse
@@ -31,11 +23,13 @@ function displayRandomVerse() {
             const randomIndex = Math.floor(Math.random() * data.length);
             const verse = data[randomIndex];
             document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
-            promptForToken(); // Prompt for new authentication after showing the verse
         })
         .catch(error => {
             console.error('Error fetching verse data:', error);
             document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
+        })
+        .finally(() => {
+            // Prompt for a new token immediately after displaying a verse
             promptForToken();
         });
 }
@@ -45,12 +39,8 @@ function promptForToken() {
     const tokenInput = prompt("Please enter your authentication token to view a verse:");
     if (tokenInput) {
         authenticateToken(tokenInput);
+    } else {
+        // If the user cancels the prompt, you can choose to either do nothing or inform them
+        alert("Authentication required to access Bible verses.");
     }
-}
-
-// Function to remove token from URL without reloading the page
-function updateURLWithoutToken() {
-    const url = new URL(window.location.href);
-    url.searchParams.delete('token');
-    window.history.pushState({}, '', url);
 }
