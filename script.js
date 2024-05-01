@@ -1,6 +1,14 @@
 // Function to execute when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    promptForToken(); // Always start by asking for a token
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    if (token) {
+        authenticateToken(token);
+        clearURL(); // Clear the token from the URL after use
+    } else {
+        promptForToken(); // Always start by asking for a token
+    }
 });
 
 // Function to authenticate the token and display a verse
@@ -29,8 +37,7 @@ function displayRandomVerse() {
             document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
         })
         .finally(() => {
-            // Prompt for a new token immediately after displaying a verse
-            promptForToken();
+            promptForToken(); // Prompt for a new token immediately after displaying a verse
         });
 }
 
@@ -40,7 +47,13 @@ function promptForToken() {
     if (tokenInput) {
         authenticateToken(tokenInput);
     } else {
-        // If the user cancels the prompt, you can choose to either do nothing or inform them
         alert("Authentication required to access Bible verses.");
     }
+}
+
+// Function to clear the URL token parameter
+function clearURL() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('token');
+    window.history.replaceState({}, document.title, url.pathname + url.search);
 }
