@@ -24,8 +24,8 @@ function authenticateToken(token) {
         // Store authentication status in session storage
         sessionStorage.setItem('authenticated', 'true');
 
-        // Display the Bible verse
-        displayBibleVerse();
+        // Display a Bible verse
+        displayRandomVerse();
     } else {
         // If authentication fails, display authentication failure message
         displayAuthenticationMessage();
@@ -38,27 +38,39 @@ function displayAuthenticationMessage() {
     document.getElementById('verseDisplay').innerHTML = "Authentication failed. Please tap your NFC card again.";
 }
 
-// Function to display the Bible verse
-function displayBibleVerse() {
-    // Fetch the Bible verse from an API or static JSON file
-    fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Select a random verse from the data
-            const randomIndex = Math.floor(Math.random() * data.length);
-            const verse = data[randomIndex];
+// Function to display a random Bible verse
+function displayRandomVerse() {
+    // Check if the user is authenticated
+    const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
 
-            // Display the selected verse
-            document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
-        })
-        .catch(error => {
-            console.error('Error fetching verse data:', error);
-            // Display an error message if fetching the verse fails
-            document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
-        });
+    // If the user is authenticated
+    if (isAuthenticated) {
+        // Clear authentication status from session storage
+        sessionStorage.removeItem('authenticated');
+
+        // Fetch the Bible verse from an API or static JSON file
+        fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Select a random verse from the data
+                const randomIndex = Math.floor(Math.random() * data.length);
+                const verse = data[randomIndex];
+
+                // Display the selected verse
+                document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
+            })
+            .catch(error => {
+                console.error('Error fetching verse data:', error);
+                // Display an error message if fetching the verse fails
+                document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
+            });
+    } else {
+        // If the user is not authenticated, display authentication failure message
+        displayAuthenticationMessage();
+    }
 }
