@@ -32,10 +32,14 @@ function fetchVerses() {
             return response.json();
         })
         .then(data => {
-            // Assuming your JSON file contains an array of verse objects
-            const randomIndex = Math.floor(Math.random() * data.length);
-            const verse = data[randomIndex];
-            displayVerse(verse);
+            // Check if data is an array and not empty
+            if (Array.isArray(data) && data.length > 0) {
+                const randomIndex = Math.floor(Math.random() * data.length);
+                const verse = data[randomIndex];
+                displayVerse(verse);
+            } else {
+                throw new Error('No verses found in the JSON file');
+            }
         })
         .catch(error => {
             console.error('Error fetching verses:', error);
