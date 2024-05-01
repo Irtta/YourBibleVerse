@@ -23,6 +23,9 @@ function authenticateToken(token) {
     if (token === expectedToken) {
         // Store authentication status in session storage
         sessionStorage.setItem('authenticated', 'true');
+
+        // Display a random Bible verse
+        displayRandomVerse();
     } else {
         // If authentication fails, display authentication failure message
         displayAuthenticationMessage();
@@ -35,19 +38,27 @@ function displayAuthenticationMessage() {
     document.getElementById('verseDisplay').innerHTML = "Authentication failed. Please tap your NFC card again.";
 }
 
-// Function to redirect to a clean URL
-function redirectToCleanURL() {
-    // Clean URL
-    const cleanURL = "https://irtta.github.io/YourBibleVerse/";
+// Function to display a random Bible verse
+function displayRandomVerse() {
+    // Fetch the Bible verse from an API or static JSON file
+    fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Select a random verse from the data
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const verse = data[randomIndex];
 
-    // Redirect to the clean URL
-    window.location.replace(cleanURL);
+            // Display the selected verse
+            document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
+        })
+        .catch(error => {
+            console.error('Error fetching verse data:', error);
+            // Display an error message if fetching the verse fails
+            document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
+        });
 }
-
-// Event listener for beforeunload event (refresh/close)
-window.addEventListener('beforeunload', function(event) {
-    // Remove authentication status from session storage
-    sessionStorage.removeItem('authenticated');
-});
-
-
