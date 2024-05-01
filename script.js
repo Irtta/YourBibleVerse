@@ -1,7 +1,3 @@
-console.log("Token:", token);
-console.log("Redirecting to clean URL");
-console.log("Authenticated:", sessionStorage.getItem('authenticated'));
-
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
@@ -9,8 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (token) {
         authenticateToken(token);
     } else {
-        // Check if previously authenticated in this session
-        if (sessionStorage.getItem('authenticated') === 'true') {
+        // Check session storage for authentication state
+        const authenticated = sessionStorage.getItem('authenticated');
+        if (authenticated === 'true') {
             fetchVerses();
         } else {
             displayAuthenticationMessage();
@@ -22,7 +19,7 @@ function authenticateToken(token) {
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
     if (token === expectedToken) {
         sessionStorage.setItem('authenticated', 'true');
-        // Redirect to remove the token from the URL
+        // Redirect to clean URL to remove the token from the URL
         window.location.href = 'https://irtta.github.io/YourBibleVerse/';
     } else {
         sessionStorage.setItem('authenticated', 'false');
