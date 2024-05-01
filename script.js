@@ -46,3 +46,4 @@ function redirectToCleanURL() {
     // Redirect to the clean URL
     window.location.replace(cleanURL);
 }
+
