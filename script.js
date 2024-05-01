@@ -22,9 +22,6 @@ function authenticateToken(token) {
     if (token === expectedToken) {
         // Store authentication status in session storage
         sessionStorage.setItem('authenticated', 'true');
-        
-        // Redirect to clean URL (remove token from URL)
-        redirectToCleanURL();
     } else {
         // If authentication fails, display authentication failure message
         displayAuthenticationMessage();
@@ -36,6 +33,18 @@ function displayAuthenticationMessage() {
     // Display a message indicating authentication failure
     document.getElementById('verseDisplay').innerHTML = "Authentication failed. Please tap your NFC card again.";
 }
+
+// Function to execute when the window is unloaded (page refresh)
+window.addEventListener('beforeunload', function() {
+    // Check if the user is authenticated
+    const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+
+    // If the user is authenticated
+    if (isAuthenticated) {
+        // Redirect to clean URL (remove token from URL)
+        redirectToCleanURL();
+    }
+});
 
 // Function to redirect to a clean URL (remove token from URL)
 function redirectToCleanURL() {
