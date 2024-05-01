@@ -1,4 +1,4 @@
-// Function to handle NFC card authentication and fetch verse data
+       // Function to handle NFC card authentication and fetch verse data
 function authenticateAndFetchVerses() {
     // Extract token from URL
     const urlSearchParams = new URLSearchParams(window.location.search);
@@ -27,9 +27,17 @@ function fetchVerses() {
     }
     
     fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => displayRandomVerse(data))
-        .catch(error => console.error('Error fetching verse data:', error));
+        .catch(error => {
+            console.error('Error fetching verse data:', error);
+            document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
+        });
 }
 
 // Function to display random verse
@@ -47,4 +55,3 @@ window.addEventListener('beforeunload', () => {
     // Remove authentication token from sessionStorage
     sessionStorage.removeItem('authToken');
     console.log('beforeunload event listener triggered'); // Add this line for debugging
-});
