@@ -23,9 +23,6 @@ function authenticateToken(token) {
     if (token === expectedToken) {
         // Store authentication status in session storage
         sessionStorage.setItem('authenticated', 'true');
-
-        // Redirect to clean URL
-        redirectToCleanURL();
     } else {
         // If authentication fails, display authentication failure message
         displayAuthenticationMessage();
@@ -46,4 +43,11 @@ function redirectToCleanURL() {
     // Redirect to the clean URL
     window.location.replace(cleanURL);
 }
+
+// Event listener for beforeunload event (refresh/close)
+window.addEventListener('beforeunload', function(event) {
+    // Remove authentication status from session storage
+    sessionStorage.removeItem('authenticated');
+});
+
 
