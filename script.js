@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
             displayAuthenticationMessage();
         }
     } else {
-        // Redirect to clean URL (remove token from URL)
+        // If the user is not authenticated, redirect to clean URL
         redirectToCleanURL();
     }
 });
@@ -31,7 +31,7 @@ function authenticateToken(token) {
     if (token === expectedToken) {
         // Store authentication status in session storage
         sessionStorage.setItem('authenticated', 'true');
-        
+
         // Redirect to clean URL (remove token from URL)
         redirectToCleanURL();
     } else {
@@ -54,4 +54,3 @@ function redirectToCleanURL() {
     // Redirect to the clean URL
     window.location.replace(cleanURL);
 }
-
