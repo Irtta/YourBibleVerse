@@ -1,32 +1,40 @@
 // Function to handle NFC card authentication and fetch verse data
 function authenticateAndFetchVerses() {
+    console.log("Attempting to authenticate...");
+
     // Extract token from URL
     const urlSearchParams = new URLSearchParams(window.location.search);
-    const params = Object.fromEntries(urlSearchParams.entries());
-    const token = params.token;
+    const token = urlSearchParams.get('token');
 
-    // Compare token with expected shared token
-    const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g"; // Replace with your actual shared token
+    console.log("Token from URL: ", token);
+
+    // Define the expected token - replace it with your actual expected token
+    const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
+
     if (token === expectedToken) {
-        // Authentication successful, store token in sessionStorage
+        console.log("Authentication successful");
+        // Store token in sessionStorage
         sessionStorage.setItem('authToken', token);
         fetchVerses();
     } else {
-        // Authentication failed, display error message
+        console.log("Authentication failed");
         document.getElementById('verseDisplay').innerHTML = "Authentication failed. Please tap your NFC card again.";
     }
 }
 
-// Function to fetch verse data from JSON file
+// Function to fetch verse data from a JSON file
 function fetchVerses() {
+    console.log("Fetching verses...");
     const authToken = sessionStorage.getItem('authToken');
+
     if (!authToken) {
-        // If authentication token is not found, display error message
+        console.log("No authentication token found.");
         document.getElementById('verseDisplay').innerHTML = "Authentication token not found. Please authenticate again.";
         return;
     }
-    
-    fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
+
+    // Replace 'verses.json' with the path to your actual JSON file
+    fetch('verses.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -40,22 +48,21 @@ function fetchVerses() {
         });
 }
 
-// Function to display random verse
+// Function to display a random verse from the fetched data
 function displayRandomVerse(verses) {
     const randomIndex = Math.floor(Math.random() * verses.length);
     const verse = verses[randomIndex];
     document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
 }
 
-// Call the authentication and verse fetch function when the page loads
+// Event listener for the DOMContentLoaded event to ensure script runs after document is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("Document loaded. Running authentication process...");
     authenticateAndFetchVerses();
 });
 
-// Event listener for page refresh and tab close to ensure clean session
+// Event listener for the beforeunload event to ensure session storage is cleared when the page is refreshed or closed
 window.addEventListener('beforeunload', () => {
-    // Remove authentication token from sessionStorage
+    console.log("Clearing session storage...");
     sessionStorage.removeItem('authToken');
-    console.log('Authentication token removed from sessionStorage');
 });
-
