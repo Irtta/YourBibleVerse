@@ -1,24 +1,16 @@
 // Function to execute when the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if the user is authenticated
-    const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+    // Check if there is a token in the URL parameters
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const token = urlSearchParams.get('token');
 
-    // If the user is authenticated
-    if (isAuthenticated) {
-        // Check if there is a token in the URL parameters
-        const token = (new URLSearchParams(window.location.search)).get('token');
-
-        // If a token is present in the URL
-        if (token) {
-            // Attempt to authenticate the token
-            authenticateToken(token);
-        } else {
-            // If no token is found in the URL, display authentication failure message
-            displayAuthenticationMessage();
-        }
+    // If a token is present in the URL
+    if (token) {
+        // Attempt to authenticate the token
+        authenticateToken(token);
     } else {
-        // Display a message indicating authentication is required
-        document.getElementById('verseDisplay').innerHTML = "Authentication required. Please tap your NFC card.";
+        // If no token is found in the URL, display authentication failure message
+        displayAuthenticationMessage();
     }
 });
 
