@@ -20,39 +20,9 @@ function authenticateToken(token) {
 
 function checkAuthentication() {
     const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
-    if (isAuthenticated) {
-        fetchVerses();
-    } else {
+    if (!isAuthenticated) {
         displayAuthenticationMessage();
     }
-}
-
-function fetchVerses() {
-    fetch('verses.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Check if data is an array and not empty
-            if (Array.isArray(data) && data.length > 0) {
-                const randomIndex = Math.floor(Math.random() * data.length);
-                const verse = data[randomIndex];
-                displayVerse(verse);
-            } else {
-                throw new Error('No verses found in the JSON file');
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching verses:', error);
-            document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
-        });
-}
-
-function displayVerse(verse) {
-    document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
 }
 
 function displayAuthenticationMessage() {
