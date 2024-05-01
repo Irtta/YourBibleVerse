@@ -37,29 +37,37 @@ function displayAuthenticationMessage() {
 
 // Function to display a random Bible verse
 function displayRandomVerse() {
-    // Fetch the Bible verse from an API or static JSON file
-    fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Select a random verse from the data
-            const randomIndex = Math.floor(Math.random() * data.length);
-            const verse = data[randomIndex];
+    // Check if the user is authenticated
+    const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
 
-            // Display the selected verse
-            document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
+    // If the user is authenticated
+    if (isAuthenticated) {
+        // Fetch the Bible verse from an API or static JSON file
+        fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Select a random verse from the data
+                const randomIndex = Math.floor(Math.random() * data.length);
+                const verse = data[randomIndex];
 
-            // Clear authentication status from session storage after displaying the verse
-            sessionStorage.removeItem('authenticated');
-        })
-        .catch(error => {
-            console.error('Error fetching verse data:', error);
-            // Display an error message if fetching the verse fails
-            document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
-        });
+                // Display the selected verse
+                document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
+
+                // Clear authentication status from session storage after displaying the verse
+                sessionStorage.removeItem('authenticated');
+            })
+            .catch(error => {
+                console.error('Error fetching verse data:', error);
+                // Display an error message if fetching the verse fails
+                document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
+            });
+    } else {
+        // If the user is not authenticated, display authentication failure message
+        displayAuthenticationMessage();
+    }
 }
-
