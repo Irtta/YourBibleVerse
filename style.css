@@ -49,6 +49,7 @@ h1 {
 /* Verse display styling */
 #verseDisplay {
     font-size: 24px; /* Set the font size for the verse */
+    font-weight: normal; /* Ensures text is not bold */
     opacity: 0; /* Starts with 0 opacity, will animate to 1 */
     animation: fadeIn 2s ease-in-out forwards; /* Re-applies the fade-in animation specifically if needed */
 }
