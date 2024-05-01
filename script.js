@@ -46,4 +46,5 @@ authenticateAndFetchVerses();
 window.addEventListener('beforeunload', () => {
     // Remove authentication token from sessionStorage
     sessionStorage.removeItem('authToken');
+    console.log('beforeunload event listener triggered'); // Add this line for debugging
 });
