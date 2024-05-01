@@ -22,6 +22,8 @@ function checkAuthentication() {
     const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
     if (!isAuthenticated) {
         displayAuthenticationMessage();
+    } else {
+        // User is authenticated, you can add code here to display content
     }
 }
 
