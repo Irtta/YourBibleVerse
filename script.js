@@ -10,8 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
 function authenticateToken(token) {
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
     const isAuthenticated = token === expectedToken;
-    sessionStorage.setItem('authenticated', isAuthenticated);
-    redirectCleanURL();
+    if (isAuthenticated) {
+        sessionStorage.setItem('authenticated', 'true');
+        redirectCleanURL();
+    } else {
+        displayAuthenticationMessage();
+    }
 }
 
 function checkAuthentication() {
@@ -56,5 +60,6 @@ function displayAuthenticationMessage() {
 }
 
 function redirectCleanURL() {
-    window.location.href = window.location.origin + window.location.pathname;
+    // Remove token from URL and redirect to clean URL
+    history.replaceState({}, document.title, window.location.pathname);
 }
