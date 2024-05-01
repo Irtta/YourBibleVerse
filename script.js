@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // If the user is authenticated
     if (isAuthenticated) {
-        // Redirect to clean URL (remove token from URL)
-        redirectToCleanURL();
-    } else {
         // Check if there is a token in the URL parameters
         const token = (new URLSearchParams(window.location.search)).get('token');
 
@@ -19,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // If no token is found in the URL, display authentication failure message
             displayAuthenticationMessage();
         }
+    } else {
+        // Redirect to clean URL (remove token from URL)
+        redirectToCleanURL();
     }
 });
 
@@ -52,5 +52,6 @@ function redirectToCleanURL() {
     const cleanURL = "https://irtta.github.io/YourBibleVerse/";
 
     // Redirect to the clean URL
-    window.location.href = cleanURL;
+    window.location.replace(cleanURL);
 }
+
