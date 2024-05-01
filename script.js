@@ -1,3 +1,7 @@
+console.log("Token:", token);
+console.log("Redirecting to clean URL");
+console.log("Authenticated:", sessionStorage.getItem('authenticated'));
+
 document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
