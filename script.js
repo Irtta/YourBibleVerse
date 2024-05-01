@@ -1,19 +1,19 @@
-// Check for a new or existing session
-if (!sessionStorage.getItem('sessionStarted')) {
-    sessionStorage.clear();  // Clear session storage to ensure fresh authentication on a new session
-    sessionStorage.setItem('sessionStarted', 'true');
-}
-
+// Function to handle NFC card authentication and fetch verse data
 function authenticateAndFetchVerses() {
     console.log("Authenticating...");
-    // Extract the token from URL parameters
     const urlSearchParams = new URLSearchParams(window.location.search);
     const token = urlSearchParams.get('token');
+
+    if (token) {
+        // Clear the token from the URL
+        window.history.replaceState(null, null, window.location.pathname);
+    }
+
     console.log("Token from URL:", token);
 
     // Define the expected token - replace with your actual token
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
-    if (token === expectedToken) {
+    if (token && token === expectedToken) {
         console.log("Authentication successful");
         sessionStorage.setItem('authToken', token);
         fetchVerses();
@@ -54,4 +54,3 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("Document loaded. Running authentication process...");
     authenticateAndFetchVerses();
 });
-
