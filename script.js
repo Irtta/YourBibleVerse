@@ -21,9 +21,6 @@ function authenticateToken(token) {
     
     // If the provided token matches the expected token
     if (token === expectedToken) {
-        // Store authentication status in session storage
-        sessionStorage.setItem('authenticated', 'true');
-
         // Display a random Bible verse
         displayRandomVerse();
     } else {
@@ -40,7 +37,7 @@ function displayAuthenticationMessage() {
 
 // Function to display a random Bible verse
 function displayRandomVerse() {
-    // Fetch the Bible verse from an API or static JSON file
+    // Fetch the Bible verse from a static JSON file
     fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
         .then(response => {
             if (!response.ok) {
