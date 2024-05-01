@@ -21,8 +21,11 @@ function authenticateToken(token) {
     
     // If the provided token matches the expected token
     if (token === expectedToken) {
-        // Display a random Bible verse
-        displayRandomVerse();
+        // Store authentication status in session storage
+        sessionStorage.setItem('authenticated', 'true');
+
+        // Redirect to clean URL
+        redirectToCleanURL();
     } else {
         // If authentication fails, display authentication failure message
         displayAuthenticationMessage();
@@ -35,39 +38,12 @@ function displayAuthenticationMessage() {
     document.getElementById('verseDisplay').innerHTML = "Authentication failed. Please tap your NFC card again.";
 }
 
-// Function to display a random Bible verse
-function displayRandomVerse() {
-    // Check if the user is authenticated
-    const isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+// Function to redirect to a clean URL
+function redirectToCleanURL() {
+    // Clean URL
+    const cleanURL = "https://irtta.github.io/YourBibleVerse/";
 
-    // If the user is authenticated
-    if (isAuthenticated) {
-        // Fetch the Bible verse from an API or static JSON file
-        fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Select a random verse from the data
-                const randomIndex = Math.floor(Math.random() * data.length);
-                const verse = data[randomIndex];
-
-                // Display the selected verse
-                document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
-
-                // Clear authentication status from session storage after displaying the verse
-                sessionStorage.removeItem('authenticated');
-            })
-            .catch(error => {
-                console.error('Error fetching verse data:', error);
-                // Display an error message if fetching the verse fails
-                document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
-            });
-    } else {
-        // If the user is not authenticated, display authentication failure message
-        displayAuthenticationMessage();
-    }
+    // Redirect to the clean URL
+    window.location.replace(cleanURL);
 }
+
