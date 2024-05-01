@@ -5,8 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (token) {
         authenticateToken(token);
     } else {
-        // No token means we're possibly after redirect or no token was provided
-        setupPage();  // Function to setup page based on session state
+        // Check if previously authenticated in this session
+        if (sessionStorage.getItem('authenticated') === 'true') {
+            fetchVerses();
+        } else {
+            displayAuthenticationMessage();
+        }
     }
 });
 
@@ -14,18 +18,12 @@ function authenticateToken(token) {
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
     if (token === expectedToken) {
         sessionStorage.setItem('authenticated', 'true');
+        // Redirect to remove the token from the URL
+        window.location.href = 'https://irtta.github.io/YourBibleVerse/';
     } else {
         sessionStorage.setItem('authenticated', 'false');
-    }
-    // Redirect to clean URL to remove the token from the URL
-    window.location.href = 'https://irtta.github.io/YourBibleVerse/';
-}
-
-function setupPage() {
-    if (sessionStorage.getItem('authenticated') === 'true') {
-        fetchVerses();
-    } else {
-        document.getElementById('verseDisplay').innerHTML = "Please authenticate to view a verse.";
+        // Redirect to clean URL even if authentication fails to remove the token
+        window.location.href = 'https://irtta.github.io/YourBibleVerse/';
     }
 }
 
@@ -44,3 +42,6 @@ function displayRandomVerse(verses) {
     document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
 }
 
+function displayAuthenticationMessage() {
+    document.getElementById('verseDisplay').innerHTML = "Authentication failed. Please tap your NFC card again.";
+}
