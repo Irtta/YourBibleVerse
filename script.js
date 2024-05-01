@@ -1,28 +1,31 @@
-// Check if we are reloading with a token
-const urlSearchParams = new URLSearchParams(window.location.search);
-const token = urlSearchParams.get('token');
-const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
-
-if (token) {
-    if (token === expectedToken) {
-        sessionStorage.setItem('authToken', token);
-        sessionStorage.setItem('authenticated', 'true');
-        window.history.replaceState(null, null, window.location.pathname);  // Clean the URL
-    } else {
-        sessionStorage.setItem('authenticated', 'false');
-        alert("Authentication failed. Please tap your NFC card again.");
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    if (sessionStorage.getItem('authenticated') === 'true') {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const token = urlSearchParams.get('token');
+
+    if (token) {
+        authenticateToken(token);
+    } else if (sessionStorage.getItem('authenticated') === 'true') {
+        // Only fetch verses if authenticated in the same session
         fetchVerses();
     } else {
-        document.getElementById('verseDisplay').innerHTML = "Please authenticate to view a verse.";
+        displayAuthenticationMessage();
     }
 });
 
+function authenticateToken(token) {
+    const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
+    if (token === expectedToken) {
+        sessionStorage.setItem('authenticated', 'true');
+        // Redirect to the same page but without query parameters
+        window.location.href = window.location.pathname;
+    } else {
+        sessionStorage.setItem('authenticated', 'false');
+        displayAuthenticationMessage();
+    }
+}
+
 function fetchVerses() {
+    console.log("Fetching verses...");
     fetch('verses.json')
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
@@ -40,3 +43,8 @@ function displayRandomVerse(verses) {
     const verse = verses[randomIndex];
     document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
 }
+
+function displayAuthenticationMessage() {
+    document.getElementById('verseDisplay').innerHTML = "Authentication failed or no token found. Please tap your NFC card again.";
+}
+
