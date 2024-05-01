@@ -1,4 +1,4 @@
-       // Function to handle NFC card authentication and fetch verse data
+// Function to handle NFC card authentication and fetch verse data
 function authenticateAndFetchVerses() {
     // Extract token from URL
     const urlSearchParams = new URLSearchParams(window.location.search);
@@ -9,7 +9,7 @@ function authenticateAndFetchVerses() {
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g"; // Replace with your actual shared token
     if (token === expectedToken) {
         // Authentication successful, store token in sessionStorage
-        sessionStorage.setItem('authToken', token); // Store token in sessionStorage
+        sessionStorage.setItem('authToken', token);
         fetchVerses();
     } else {
         // Authentication failed, display error message
@@ -48,10 +48,14 @@ function displayRandomVerse(verses) {
 }
 
 // Call the authentication and verse fetch function when the page loads
-authenticateAndFetchVerses();
+document.addEventListener('DOMContentLoaded', function() {
+    authenticateAndFetchVerses();
+});
 
-// Event listener for page refresh
+// Event listener for page refresh and tab close to ensure clean session
 window.addEventListener('beforeunload', () => {
     // Remove authentication token from sessionStorage
     sessionStorage.removeItem('authToken');
-    console.log('beforeunload event listener triggered'); // Add this line for debugging
+    console.log('Authentication token removed from sessionStorage');
+});
+
