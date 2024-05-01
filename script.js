@@ -33,3 +33,9 @@ function displayRandomVerse(verses) {
 
 // Call the authentication and verse fetch function when the page loads
 authenticateAndFetchVerses();
+
+// Event listener for page refresh
+window.addEventListener('beforeunload', () => {
+    // Remove authentication token from sessionStorage
+    sessionStorage.removeItem('authToken');
+});
