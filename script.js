@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (token) {
         authenticateToken(token);
+        clearURL(); // Clear the URL immediately after processing the token
     } else {
-        document.getElementById('prompt').style.display = 'block'; // Ensure prompt is visible if no token
+        document.getElementById('prompt').style.display = 'block'; // Show the prompt if no token is present
+        document.getElementById('verseDisplay').textContent = "Please scan your NFC card to view a verse.";
     }
 });
 
@@ -15,7 +17,7 @@ function authenticateToken(token) {
         displayRandomVerse();
     } else {
         document.getElementById('verseDisplay').textContent = "Invalid NFC scan. Please try again.";
-        document.getElementById('prompt').style.display = 'block'; // Show prompt if invalid
+        document.getElementById('prompt').style.display = 'block'; // Ensure the prompt is visible
     }
 }
 
@@ -31,6 +33,10 @@ function displayRandomVerse() {
         .catch(error => {
             console.error('Error fetching verse data:', error);
             document.getElementById('verseDisplay').textContent = "Error fetching verse data. Please try again later.";
-            document.getElementById('prompt').style.display = 'block';
+            document.getElementById('prompt').style.display = 'block'; // Show the prompt on error
         });
+}
+
+function clearURL() {
+    window.history.replaceState({}, document.title, window.location.pathname);
 }
