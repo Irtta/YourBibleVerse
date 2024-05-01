@@ -1,4 +1,3 @@
-
 // Function to handle NFC card authentication and fetch verse data
 function authenticateAndFetchVerses() {
     // Extract token from URL
@@ -7,7 +6,7 @@ function authenticateAndFetchVerses() {
     const token = params.token;
 
     // Compare token with expected shared token
-    const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g"; // Replace with your actual shared token
+    const expectedToken = "YOUR_SHARED_TOKEN"; // Replace with your actual shared token
     if (token === expectedToken) {
         // Authentication successful, store token in sessionStorage and fetch verse data
         sessionStorage.setItem('authToken', token); // Store token in sessionStorage
@@ -40,5 +39,7 @@ authenticateAndFetchVerses();
 window.addEventListener('beforeunload', () => {
     // Remove authentication token from sessionStorage
     sessionStorage.removeItem('authToken');
+    console.log('beforeunload event listener triggered'); // Add this line for debugging
 });
+
 
