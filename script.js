@@ -8,7 +8,7 @@ function authenticateAndFetchVerses() {
     // Compare token with expected shared token
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g"; // Replace with your actual shared token
     if (token === expectedToken) {
-        // Authentication successful, store token in sessionStorage and fetch verse data
+        // Authentication successful, store token in sessionStorage
         sessionStorage.setItem('authToken', token); // Store token in sessionStorage
         fetchVerses();
     } else {
@@ -19,6 +19,13 @@ function authenticateAndFetchVerses() {
 
 // Function to fetch verse data from JSON file
 function fetchVerses() {
+    const authToken = sessionStorage.getItem('authToken');
+    if (!authToken) {
+        // If authentication token is not found, display error message
+        document.getElementById('verseDisplay').innerHTML = "Authentication token not found. Please authenticate again.";
+        return;
+    }
+    
     fetch('verses.json') // Replace 'verses.json' with the path to your JSON file
         .then(response => response.json())
         .then(data => displayRandomVerse(data))
@@ -39,7 +46,4 @@ authenticateAndFetchVerses();
 window.addEventListener('beforeunload', () => {
     // Remove authentication token from sessionStorage
     sessionStorage.removeItem('authToken');
-    console.log('beforeunload event listener triggered'); // Add this line for debugging
 });
-
-
