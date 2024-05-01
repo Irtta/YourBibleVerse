@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if there is a token in the URL parameters
     const token = (new URLSearchParams(window.location.search)).get('token');
 
+    // Log the token to the console for debugging
+    console.log("Token from URL:", token);
+
     // If a token is present in the URL
     if (token) {
         // Attempt to authenticate the token
@@ -20,6 +23,9 @@ function authenticateToken(token) {
     
     // Check if the provided token matches the expected token
     const isAuthenticated = token === expectedToken;
+
+    // Log the authentication status to the console for debugging
+    console.log("Authentication status:", isAuthenticated);
 
     // If the token is authenticated
     if (isAuthenticated) {
@@ -44,6 +50,9 @@ function displayAuthenticationMessage() {
 function redirectToCleanURL() {
     // Clean URL
     const cleanURL = "https://irtta.github.io/YourBibleVerse/";
+
+    // Log the clean URL to the console for debugging
+    console.log("Redirecting to clean URL:", cleanURL);
 
     // Redirect to the clean URL
     window.location.href = cleanURL;
