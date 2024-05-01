@@ -17,7 +17,7 @@ function authenticateToken(token) {
         displayRandomVerse();
         document.getElementById('prompt').style.display = 'none'; // Hide the prompt when a valid verse is displayed
     } else {
-        document.getElementById('verseDisplay').textContent = "Invalid NFC scan. Please try again.";
+        document.getElementById('verseDisplay').textContent = "Invalid card scan. Please try again.";
         document.getElementById('prompt').style.display = 'block'; // Ensure the prompt is visible
     }
 }
