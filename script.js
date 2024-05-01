@@ -13,6 +13,7 @@ function authenticateToken(token) {
         displayRandomVerse();
     } else {
         document.getElementById('verseDisplay').textContent = "Invalid NFC scan. Please try again.";
+        document.getElementById('prompt').style.display = 'block'; // Show prompt if invalid
     }
 }
 
@@ -23,6 +24,7 @@ function displayRandomVerse() {
             const randomIndex = Math.floor(Math.random() * data.length);
             const verse = data[randomIndex];
             document.getElementById('verseDisplay').innerHTML = `<strong>${verse.text}</strong> — ${verse.reference}`;
+            document.getElementById('prompt').style.display = 'none'; // Hide the prompt when verse is displayed
         })
         .catch(error => {
             console.error('Error fetching verse data:', error);
