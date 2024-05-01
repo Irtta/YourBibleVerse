@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (token) {
         authenticateToken(token);
     } else {
-        // Check session storage for authentication state
+        // Check if authenticated in session
         const authenticated = sessionStorage.getItem('authenticated');
         if (authenticated === 'true') {
             fetchVerses();
@@ -18,13 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
 function authenticateToken(token) {
     const expectedToken = "sY6gXmTb8qYnJxMw8qAs5lFvJmO6tGpP9ySfZhHtUw0qW$zEcNw9yR!g";
     if (token === expectedToken) {
+        // Set authenticated state in session
         sessionStorage.setItem('authenticated', 'true');
-        // Redirect to clean URL to remove the token from the URL
-        window.location.href = 'https://irtta.github.io/YourBibleVerse/';
+        // Redirect to remove token from URL
+        window.location.href = window.location.origin + window.location.pathname;
     } else {
+        // Set unauthenticated state in session
         sessionStorage.setItem('authenticated', 'false');
-        // Redirect to clean URL even if authentication fails to remove the token
-        window.location.href = 'https://irtta.github.io/YourBibleVerse/';
+        // Redirect to remove token from URL even if authentication fails
+        window.location.href = window.location.origin + window.location.pathname;
     }
 }
 
@@ -35,12 +37,6 @@ function fetchVerses() {
         .catch(error => {
             document.getElementById('verseDisplay').innerHTML = "Error fetching verse data. Please try again later.";
         });
-}
-
-function displayRandomVerse(verses) {
-    const randomIndex = Math.floor(Math.random() * verses.length);
-    const verse = verses[randomIndex];
-    document.getElementById('verseDisplay').innerHTML = `${verse.text} — ${verse.reference}`;
 }
 
 function displayAuthenticationMessage() {
